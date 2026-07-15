@@ -1,0 +1,62 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+
+    <a class="navbar-brand fw-semibold" href="/">
+      Baština Punta
+    </a>
+
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#glavnaNavigacija"
+      aria-controls="glavnaNavigacija"
+      aria-expanded="false"
+      aria-label="Otvori navigaciju"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="glavnaNavigacija">
+      <ul class="navbar-nav ms-auto">
+
+        <li class="nav-item">
+          <a
+            class="nav-link <%= currentPath === '/' ? 'active' : '' %>"
+            href="/"
+          >
+            Početna
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a
+            class="nav-link <%= currentPath.startsWith('/obicaji') ? 'active' : '' %>"
+            href="/obicaji"
+          >
+            Običaji
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a
+            class="nav-link <%= currentPath.startsWith('/dogadanja') ? 'active' : '' %>"
+            href="/dogadanja"
+          >
+            Događanja
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a
+            class="nav-link <%= currentPath.startsWith('/o-projektu') ? 'active' : '' %>"
+            href="/o-projektu"
+          >
+            O projektu
+          </a>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+</nav>

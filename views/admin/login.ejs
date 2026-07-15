@@ -1,0 +1,67 @@
+<%- include('../partials/head', { title: 'Prijava administratora' }) %>
+
+<%- include('../partials/navbar') %>
+
+<main class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-7 col-lg-5">
+
+      <div class="card shadow-sm border-0">
+        <div class="card-body p-4 p-lg-5">
+
+          <h1 class="h3 text-center mb-4">
+            Prijava administratora
+          </h1>
+
+          <% if (error) { %>
+            <div class="alert alert-danger">
+              <%= error %>
+            </div>
+          <% } %>
+
+          <form method="POST" action="/admin/login">
+
+            <div class="mb-3">
+              <label for="korisnicko_ime" class="form-label">
+                Korisničko ime
+              </label>
+
+              <input
+                type="text"
+                class="form-control"
+                id="korisnicko_ime"
+                name="korisnicko_ime"
+                required
+                autocomplete="username"
+              >
+            </div>
+
+            <div class="mb-4">
+              <label for="lozinka" class="form-label">
+                Lozinka
+              </label>
+
+              <input
+                type="password"
+                class="form-control"
+                id="lozinka"
+                name="lozinka"
+                required
+                autocomplete="current-password"
+              >
+            </div>
+
+            <button type="submit" class="btn btn-dark w-100">
+              Prijavi se
+            </button>
+
+          </form>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<%- include('../partials/footer') %>

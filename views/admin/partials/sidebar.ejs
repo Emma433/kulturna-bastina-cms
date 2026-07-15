@@ -1,0 +1,51 @@
+<aside class="admin-sidebar">
+
+  <div class="admin-brand">
+    <a href="/admin">
+      Baština Punta CMS
+    </a>
+  </div>
+
+  <nav class="admin-navigation">
+
+    <a
+      href="/admin"
+      class="admin-nav-link <%= currentPath === '/admin' ? 'active' : '' %>"
+    >
+      Nadzorna ploča
+    </a>
+
+    <a
+      href="/admin/obicaji"
+      class="admin-nav-link <%= currentPath.startsWith('/admin/obicaji') ? 'active' : '' %>"
+    >
+      Običaji
+    </a>
+
+    <a
+      href="/admin/dogadanja"
+      class="admin-nav-link <%= currentPath.startsWith('/admin/dogadanja') ? 'active' : '' %>"
+    >
+      Događanja
+    </a>
+
+    <a
+      href="/"
+      class="admin-nav-link"
+      target="_blank"
+    >
+      Otvori javnu stranicu
+    </a>
+
+    <form method="POST" action="/admin/logout">
+      <button
+        type="submit"
+        class="admin-nav-link admin-logout-button"
+      >
+        Odjava
+      </button>
+    </form>
+
+  </nav>
+
+</aside>

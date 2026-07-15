@@ -1,0 +1,132 @@
+<%- include('../partials/head', { title: 'Upravljanje običajima' }) %>
+
+<div class="admin-layout">
+
+  <%- include('../partials/sidebar') %>
+
+  <div class="admin-main">
+
+    <%- include('../partials/header', { korisnickoIme }) %>
+
+    <main class="admin-content">
+
+
+      <%- include('../partials/messages') %>
+
+    
+
+      <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4">
+
+        <div>
+          <h1 class="fw-bold mb-2">Upravljanje običajima</h1>
+
+          <p class="text-muted mb-0">
+            Dodavanje, uređivanje i pregled sadržaja o puntarskim običajima.
+          </p>
+        </div>
+
+        <a href="/admin/obicaji/novi" class="btn btn-dark mt-3 mt-md-0">
+          Dodaj novi običaj
+        </a>
+
+      </div>
+
+      <% if (obicaji.length > 0) { %>
+
+        <div class="card border-0 shadow-sm">
+          <div class="card-body p-0">
+
+            <div class="table-responsive">
+              <table class="table table-hover align-middle mb-0">
+
+                <thead class="table-dark">
+                  <tr>
+                    <th>ID</th>
+                    <th>Naziv</th>
+                    <th>Mjesto</th>
+                    <th>Status</th>
+                    <th>Datum unosa</th>
+                    <th class="text-end">Akcije</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+
+                  <% obicaji.forEach(obicaj => { %>
+
+                    <tr>
+                      <td><%= obicaj.id %></td>
+
+                      <td>
+                        <strong><%= obicaj.naziv %></strong>
+                      </td>
+
+                      <td>
+                        <%= obicaj.mjesto || '-' %>
+                      </td>
+
+                      <td>
+                        <% if (obicaj.status_objave === 1) { %>
+                          <span class="badge text-bg-success">
+                            Objavljeno
+                          </span>
+                        <% } else { %>
+                          <span class="badge text-bg-secondary">
+                            Skica
+                          </span>
+                        <% } %>
+                      </td>
+
+                      <td>
+                        <%= new Date(obicaj.created_at).toLocaleDateString('hr-HR') %>
+                      </td>
+
+                      <td class="text-end">
+
+                        <a
+                          href="/obicaji/<%= obicaj.id %>"
+                          class="btn btn-sm btn-outline-secondary"
+                          target="_blank"
+                        >
+                          Pregled
+                        </a>
+
+                        <a
+                          href="/admin/obicaji/<%= obicaj.id %>/uredi"
+                          class="btn btn-sm btn-outline-dark"
+                        >
+                          Uredi
+                        </a>
+
+                        <form
+                          action="/admin/obicaji/<%= obicaj.id %>/obrisi"
+                          method="POST"
+                          class="d-inline"
+                          onsubmit="return confirm('Jeste li sigurni da želite obrisati ovaj običaj?');"
+                        >
+                          <button type="submit" class="btn btn-sm btn-outline-danger">
+                            Obriši
+                          </button>
+                        </form>
+
+                      </td>
+                    </tr>
+
+                  <% }) %>
+
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+        </div>
+
+      <% } else { %>
+
+        <div class="alert alert-info">
+          U sustavu još nema običaja.
+        </div>
+
+      <% } %>
+
+<%- include('../partials/footer') %>

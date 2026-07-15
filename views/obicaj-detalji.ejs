@@ -1,0 +1,123 @@
+<%- include('partials/head', { title: obicaj.naziv }) %>
+
+<%- include('partials/navbar') %>
+
+<main>
+  <section class="container py-5">
+
+    <a href="/obicaji" class="btn btn-outline-dark mb-4">
+      ← Povratak na običaje
+    </a>
+
+    <article class="bg-white rounded shadow-sm overflow-hidden">
+
+      <% if (obicaj.naslovna_slika) { %>
+        <img
+          src="/images/<%= obicaj.naslovna_slika %>"
+          class="w-100 detail-cover-image"
+          alt="<%= obicaj.naziv %>"
+        >
+      <% } %>
+
+      <div class="p-4 p-lg-5">
+
+        <h1 class="fw-bold mb-3">
+          <%= obicaj.naziv %>
+        </h1>
+
+        <p class="lead">
+          <%= obicaj.kratki_opis %>
+        </p>
+
+        <hr class="my-4">
+
+        <section class="mb-5">
+          <h2 class="h4">Opis običaja</h2>
+
+          <p class="detail-text">
+            <%= obicaj.detaljni_opis %>
+          </p>
+        </section>
+
+        <% if (obicaj.povijest) { %>
+          <section class="mb-5">
+            <h2 class="h4">Povijest</h2>
+
+            <p class="detail-text">
+              <%= obicaj.povijest %>
+            </p>
+          </section>
+        <% } %>
+
+        <section class="mb-5">
+          <h2 class="h4">Osnovne informacije</h2>
+
+          <dl class="row mt-3">
+
+            <% if (obicaj.mjesto) { %>
+              <dt class="col-sm-3">Mjesto</dt>
+              <dd class="col-sm-9"><%= obicaj.mjesto %></dd>
+            <% } %>
+
+            <% if (obicaj.organizator) { %>
+              <dt class="col-sm-3">Organizator</dt>
+              <dd class="col-sm-9"><%= obicaj.organizator %></dd>
+            <% } %>
+
+          </dl>
+        </section>
+
+        <section>
+          <h2 class="h4">Održavanja</h2>
+
+          <% if (dogadanja.length > 0) { %>
+
+            <div class="list-group mt-3">
+
+              <% dogadanja.forEach(dogadanje => { %>
+
+                <div class="list-group-item py-3">
+
+                  <h3 class="h6 mb-2">
+                    <%= dogadanje.naziv %>
+                  </h3>
+
+                  <p class="mb-1">
+                    <strong>Početak:</strong>
+                    <%= new Date(dogadanje.datum_pocetka).toLocaleString('hr-HR') %>
+                  </p>
+
+                  <% if (dogadanje.datum_zavrsetka) { %>
+                    <p class="mb-1">
+                      <strong>Završetak:</strong>
+                      <%= new Date(dogadanje.datum_zavrsetka).toLocaleString('hr-HR') %>
+                    </p>
+                  <% } %>
+
+                  <p class="mb-0">
+                    <strong>Lokacija:</strong>
+                    <%= dogadanje.lokacija %>
+                  </p>
+
+                </div>
+
+              <% }) %>
+
+            </div>
+
+          <% } else { %>
+
+            <p class="text-muted mt-3">
+              Za ovaj običaj trenutačno nema objavljenih termina održavanja.
+            </p>
+
+          <% } %>
+        </section>
+
+      </div>
+    </article>
+
+  </section>
+</main>
+
+<%- include('partials/footer') %>

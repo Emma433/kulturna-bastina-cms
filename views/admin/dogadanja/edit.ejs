@@ -1,0 +1,184 @@
+<%- include('../partials/head', { title: 'Uredi događanje' }) %>
+
+<div class="admin-layout">
+
+  <%- include('../partials/sidebar') %>
+
+  <div class="admin-main">
+
+    <%- include('../partials/header', { korisnickoIme }) %>
+
+    <main class="admin-content">
+
+      <%- include('../partials/messages') %>
+
+      <div class="mb-4">
+        <h1 class="fw-bold mb-2">Uredi događanje</h1>
+
+        <p class="text-muted mb-0">
+          Uredite podatke o događanju
+          <strong><%= dogadanje.naziv %></strong>.
+        </p>
+      </div>
+
+      <% if (error) { %>
+        <div class="alert alert-danger">
+          <%= error %>
+        </div>
+      <% } %>
+
+      <div class="card border-0 shadow-sm">
+        <div class="card-body p-4">
+
+          <form
+            method="POST"
+            action="/admin/dogadanja/<%= dogadanje.id %>/uredi"
+          >
+
+            <div class="mb-3">
+              <label for="obicaj_id" class="form-label">
+                Povezani običaj *
+              </label>
+
+              <select
+                class="form-select"
+                id="obicaj_id"
+                name="obicaj_id"
+                required
+              >
+                <% obicaji.forEach(obicaj => { %>
+                  <option
+                    value="<%= obicaj.id %>"
+                    <%= String(dogadanje.obicaj_id) === String(obicaj.id) ? 'selected' : '' %>
+                  >
+                    <%= obicaj.naziv %>
+                  </option>
+                <% }) %>
+              </select>
+            </div>
+
+            <div class="mb-3">
+              <label for="naziv" class="form-label">
+                Naziv događanja *
+              </label>
+
+              <input
+                type="text"
+                class="form-control"
+                id="naziv"
+                name="naziv"
+                value="<%= dogadanje.naziv || '' %>"
+                required
+                maxlength="150"
+              >
+            </div>
+
+            <div class="mb-3">
+              <label for="opis" class="form-label">
+                Opis
+              </label>
+
+              <textarea
+                class="form-control"
+                id="opis"
+                name="opis"
+                rows="5"
+              ><%= dogadanje.opis || '' %></textarea>
+            </div>
+
+            <div class="row">
+
+              <div class="col-md-6 mb-3">
+                <label for="datum_pocetka" class="form-label">
+                  Datum i vrijeme početka *
+                </label>
+
+                <input
+                  type="datetime-local"
+                  class="form-control"
+                  id="datum_pocetka"
+                  name="datum_pocetka"
+                  value="<%= dogadanje.datum_pocetka || '' %>"
+                  required
+                >
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <label for="datum_zavrsetka" class="form-label">
+                  Datum i vrijeme završetka
+                </label>
+
+                <input
+                  type="datetime-local"
+                  class="form-control"
+                  id="datum_zavrsetka"
+                  name="datum_zavrsetka"
+                  value="<%= dogadanje.datum_zavrsetka || '' %>"
+                >
+              </div>
+
+            </div>
+
+            <div class="mb-3">
+              <label for="lokacija" class="form-label">
+                Lokacija *
+              </label>
+
+              <input
+                type="text"
+                class="form-control"
+                id="lokacija"
+                name="lokacija"
+                value="<%= dogadanje.lokacija || '' %>"
+                required
+                maxlength="150"
+              >
+            </div>
+
+            <div class="mb-4">
+              <label for="status_objave" class="form-label">
+                Status
+              </label>
+
+              <select
+                class="form-select"
+                id="status_objave"
+                name="status_objave"
+              >
+                <option
+                  value="0"
+                  <%= Number(dogadanje.status_objave) === 0 ? 'selected' : '' %>
+                >
+                  Skica
+                </option>
+
+                <option
+                  value="1"
+                  <%= Number(dogadanje.status_objave) === 1 ? 'selected' : '' %>
+                >
+                  Objavljeno
+                </option>
+              </select>
+            </div>
+
+            <div class="d-flex flex-column flex-sm-row gap-2">
+
+              <button type="submit" class="btn btn-dark">
+                Spremi promjene
+              </button>
+
+              <a
+                href="/admin/dogadanja"
+                class="btn btn-outline-secondary"
+              >
+                Odustani
+              </a>
+
+            </div>
+
+          </form>
+
+        </div>
+      </div>
+
+<%- include('../partials/footer') %>

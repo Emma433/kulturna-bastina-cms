@@ -1,0 +1,195 @@
+<%- include('../partials/head', { title: 'Dodaj običaj' }) %>
+
+<div class="admin-layout">
+
+  <%- include('../partials/sidebar') %>
+
+  <div class="admin-main">
+
+    <%- include('../partials/header', { korisnickoIme }) %>
+
+    <main class="admin-content">
+
+      <%- include('../partials/messages') %>
+
+      <div class="mb-4">
+        <h1 class="fw-bold mb-2">Dodaj novi običaj</h1>
+
+        <p class="text-muted mb-0">
+          Unesite podatke koji će se prikazivati u digitalnom arhivu.
+        </p>
+      </div>
+
+      <% if (error) { %>
+        <div class="alert alert-danger">
+          <%= error %>
+        </div>
+      <% } %>
+
+      <div class="card border-0 shadow-sm">
+        <div class="card-body p-4">
+
+          <form method="POST" action="/admin/obicaji">
+
+            <div class="mb-3">
+              <label for="naziv" class="form-label">
+                Naziv običaja *
+              </label>
+
+              <input
+                type="text"
+                class="form-control"
+                id="naziv"
+                name="naziv"
+                value="<%= formData.naziv || '' %>"
+                required
+                maxlength="150"
+              >
+            </div>
+
+            <div class="mb-3">
+              <label for="kratki_opis" class="form-label">
+                Kratki opis *
+              </label>
+
+              <textarea
+                class="form-control"
+                id="kratki_opis"
+                name="kratki_opis"
+                rows="3"
+                required
+                maxlength="300"
+              ><%= formData.kratki_opis || '' %></textarea>
+
+              <div class="form-text">
+                Prikazuje se na karticama običaja.
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="detaljni_opis" class="form-label">
+                Detaljni opis *
+              </label>
+
+              <textarea
+                class="form-control"
+                id="detaljni_opis"
+                name="detaljni_opis"
+                rows="7"
+                required
+              ><%= formData.detaljni_opis || '' %></textarea>
+            </div>
+
+            <div class="mb-3">
+              <label for="povijest" class="form-label">
+                Povijest
+              </label>
+
+              <textarea
+                class="form-control"
+                id="povijest"
+                name="povijest"
+                rows="6"
+              ><%= formData.povijest || '' %></textarea>
+            </div>
+
+            <div class="row">
+
+              <div class="col-md-6 mb-3">
+                <label for="mjesto" class="form-label">
+                  Mjesto
+                </label>
+
+                <input
+                  type="text"
+                  class="form-control"
+                  id="mjesto"
+                  name="mjesto"
+                  value="<%= formData.mjesto || 'Punat' %>"
+                  maxlength="150"
+                >
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <label for="organizator" class="form-label">
+                  Organizator
+                </label>
+
+                <input
+                  type="text"
+                  class="form-control"
+                  id="organizator"
+                  name="organizator"
+                  value="<%= formData.organizator || '' %>"
+                  maxlength="150"
+                >
+              </div>
+
+            </div>
+
+            <div class="mb-3">
+                 <label for="naslovna_slika" class="form-label">
+                     Naslovna slika
+                 </label>
+
+                  <input
+                    type="file"
+                    class="form-control"
+                    id="naslovna_slika"
+                    name="naslovna_slika"
+                    accept=".jpg,.jpeg,.png,.webp"
+                >
+
+                <div class="form-text">
+                    Dopušteni formati su JPG, PNG i WEBP.
+                    Najveća veličina datoteke je 5 MB.
+                </div>
+            </div>
+
+            <div class="mb-4">
+              <label for="status_objave" class="form-label">
+                Status
+              </label>
+
+              <select
+                class="form-select"
+                id="status_objave"
+                name="status_objave"
+              >
+                <option
+                  value="0"
+                  <%= formData.status_objave !== '1' ? 'selected' : '' %>
+                >
+                  Skica
+                </option>
+
+                <option
+                  value="1"
+                  <%= formData.status_objave === '1' ? 'selected' : '' %>
+                >
+                  Objavljeno
+                </option>
+              </select>
+            </div>
+
+            <div class="d-flex flex-column flex-sm-row gap-2">
+
+              <button type="submit" class="btn btn-dark">
+                Spremi običaj
+              </button>
+
+              <a
+                href="/admin/obicaji"
+                class="btn btn-outline-secondary"
+              >
+                Odustani
+              </a>
+
+            </div>
+
+          </form>
+
+        </div>
+      </div>
+
+<%- include('../partials/footer') %>

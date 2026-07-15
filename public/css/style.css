@@ -1,0 +1,273 @@
+body {
+  background-color: #f8f9fa;
+  color: #212529;
+}
+
+.hero-section {
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+background:
+    linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)),
+    url('/images/punat-hero.jpg') center center/cover no-repeat;
+  color: white;
+}
+
+.hero-content {
+  max-width: 700px;
+}
+
+.section-title {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.custom-card {
+  height: 100%;
+  border: none;
+  box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.08);
+}
+
+.custom-card img {
+  height: 220px;
+  object-fit: cover;
+}
+
+.site-footer {
+  margin-top: 4rem;
+  padding: 2rem 0;
+  background-color: #212529;
+  color: white;
+}
+
+.placeholder-image {
+  height: 220px;
+  background-color: #e9ecef;
+  color: #6c757d;
+}
+
+.custom-card {
+  overflow: hidden;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.custom-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.12);
+}
+
+.detail-cover-image {
+  max-height: 480px;
+  object-fit: cover;
+}
+
+.detail-text {
+  white-space: pre-line;
+  line-height: 1.8;
+}
+
+.project-hero {
+  background-color: #e9ecef;
+}
+
+.project-hero p {
+  color: #495057;
+}
+
+
+.admin-body {
+  margin: 0;
+  background-color: #f4f5f7;
+}
+
+.admin-layout {
+  min-height: 100vh;
+  display: flex;
+}
+
+.admin-sidebar {
+  width: 260px;
+  flex-shrink: 0;
+  background-color: #212529;
+  color: white;
+  transition: transform 0.25s ease;
+}
+
+.admin-brand {
+  padding: 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.admin-brand a {
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.admin-navigation {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+.admin-nav-link {
+  display: block;
+  width: 100%;
+  padding: 0.8rem 1rem;
+  margin-bottom: 0.35rem;
+  border: 0;
+  border-radius: 0.5rem;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.8);
+  text-align: left;
+  text-decoration: none;
+}
+
+.admin-nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.admin-logout-button {
+  cursor: pointer;
+}
+
+.admin-main {
+  min-width: 0;
+  flex-grow: 1;
+}
+
+.admin-header {
+  min-height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  border-bottom: 1px solid #dee2e6;
+  background-color: white;
+}
+
+.admin-menu-button {
+  display: none;
+}
+
+.admin-content {
+  padding: 2rem;
+}
+
+.admin-dashboard-card {
+  border: 0;
+  box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.07);
+}
+
+@media (max-width: 991.98px) {
+  .admin-sidebar {
+    position: fixed;
+    inset: 0 auto 0 0;
+    z-index: 1050;
+    transform: translateX(-100%);
+  }
+
+  .admin-sidebar-open {
+    transform: translateX(0);
+  }
+
+  .admin-menu-button {
+    display: inline-block;
+  }
+
+  .admin-header {
+    padding: 1rem;
+  }
+
+  .admin-content {
+    padding: 1.25rem;
+  }
+}
+
+.admin-image-preview {
+  width: 100%;
+  max-width: 360px;
+  max-height: 240px;
+  object-fit: cover;
+}
+
+
+.events-hero {
+  background-color: #e9ecef;
+}
+
+.events-hero p {
+  color: #495057;
+}
+
+.event-card {
+  border: 0;
+  overflow: hidden;
+  box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.08);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.event-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.12);
+}
+
+.event-date-box {
+  width: fit-content;
+  min-width: 92px;
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  background-color: #212529;
+  color: white;
+  text-align: center;
+}
+
+.event-day,
+.event-month,
+.event-year {
+  display: block;
+}
+
+.event-day {
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.event-month {
+  margin-top: 0.25rem;
+  font-size: 0.9rem;
+  text-transform: capitalize;
+}
+
+.event-year {
+  font-size: 0.8rem;
+  opacity: 0.75;
+}
+
+.admin-stat-card {
+  border: 0;
+  box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.07);
+}
+
+.admin-stat-number {
+  font-size: 2.25rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.admin-nav-link.active {
+  background-color: rgba(255, 255, 255, 0.16);
+  color: white;
+  font-weight: 600;
+}
+
+.navbar .nav-link.active {
+  font-weight: 600;
+}

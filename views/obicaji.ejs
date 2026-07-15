@@ -1,0 +1,127 @@
+<%- include('partials/head', { title: 'Običaji' }) %>
+
+<%- include('partials/navbar') %>
+
+<main class="container py-5">
+
+  <div class="text-center mb-5">
+    <h1 class="fw-bold">Običaji Punta</h1>
+
+    <p class="text-muted mx-auto" style="max-width: 720px;">
+      Upoznajte žive običaje i tradicije koji čine važan dio identiteta mjesta Punat.
+    </p>
+  </div>
+
+
+<form
+  method="GET"
+  action="/obicaji"
+  class="row justify-content-center mb-5"
+>
+
+  <div class="col-lg-8">
+
+    <div class="input-group input-group-lg">
+
+      <input
+        type="search"
+        class="form-control"
+        name="q"
+        value="<%= pretraga || '' %>"
+        placeholder="Pretražite običaje..."
+        aria-label="Pretraživanje običaja"
+      >
+
+      <button
+        type="submit"
+        class="btn btn-dark"
+      >
+        Pretraži
+      </button>
+
+      <% if (pretraga) { %>
+        <a
+          href="/obicaji"
+          class="btn btn-outline-secondary"
+        >
+          Poništi
+        </a>
+      <% } %>
+
+    </div>
+
+  </div>
+
+</form>
+
+  <div class="row g-4">
+
+    <% if (obicaji && obicaji.length > 0) { %>
+
+      <% obicaji.forEach(obicaj => { %>
+
+        <div class="col-md-6 col-lg-4">
+
+          <article class="card custom-card">
+
+            <% if (obicaj.naslovna_slika) { %>
+              <img
+                src="/images/<%= obicaj.naslovna_slika %>"
+                class="card-img-top"
+                alt="<%= obicaj.naziv %>"
+              >
+            <% } else { %>
+              <div class="placeholder-image d-flex align-items-center justify-content-center">
+                <span>Nema fotografije</span>
+              </div>
+            <% } %>
+
+            <div class="card-body d-flex flex-column">
+
+              <h2 class="card-title h5">
+                <%= obicaj.naziv %>
+              </h2>
+
+              <p class="card-text">
+                <%= obicaj.kratki_opis %>
+              </p>
+
+              <a
+                href="/obicaji/<%= obicaj.id %>"
+                class="btn btn-dark mt-auto"
+              >
+                Pročitaj više
+              </a>
+
+            </div>
+
+          </article>
+
+        </div>
+
+      <% }) %>
+
+    <% } else { %>
+
+  <div class="col-12">
+
+    <div class="alert alert-info text-center">
+
+      <% if (pretraga) { %>
+        Nije pronađen nijedan običaj za pojam
+        „<strong><%= pretraga %></strong>”.
+      <% } else { %>
+        Trenutačno nema objavljenih običaja.
+      <% } %>
+
+    </div>
+
+  </div>
+
+<% } %>
+
+  </div>
+
+</main>
+
+<%- include('partials/footer') %>

@@ -1,0 +1,134 @@
+<%- include('../partials/head', { title: 'Upravljanje događanjima' }) %>
+
+<div class="admin-layout">
+
+  <%- include('../partials/sidebar') %>
+
+  <div class="admin-main">
+
+    <%- include('../partials/header', { korisnickoIme }) %>
+
+    <main class="admin-content">
+
+      <%- include('../partials/messages') %>
+
+      <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4">
+
+        <div>
+          <h1 class="fw-bold mb-2">Upravljanje događanjima</h1>
+
+          <p class="text-muted mb-0">
+            Dodavanje, uređivanje i brisanje termina održavanja običaja.
+          </p>
+        </div>
+
+        <a href="/admin/dogadanja/novo" class="btn btn-dark mt-3 mt-md-0">
+          Dodaj novo događanje
+        </a>
+
+      </div>
+
+      <% if (dogadanja && dogadanja.length > 0) { %>
+
+        <div class="card border-0 shadow-sm">
+          <div class="card-body p-0">
+
+            <div class="table-responsive">
+
+              <table class="table table-hover align-middle mb-0">
+
+                <thead class="table-dark">
+                  <tr>
+                    <th>ID</th>
+                    <th>Naziv</th>
+                    <th>Običaj</th>
+                    <th>Početak</th>
+                    <th>Lokacija</th>
+                    <th>Status</th>
+                    <th class="text-end">Akcije</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+
+                  <% dogadanja.forEach(dogadanje => { %>
+
+                    <tr>
+
+                      <td><%= dogadanje.id %></td>
+
+                      <td>
+                        <strong><%= dogadanje.naziv %></strong>
+                      </td>
+
+                      <td>
+                        <%= dogadanje.naziv_obicaja %>
+                      </td>
+
+                      <td>
+                        <%= new Date(dogadanje.datum_pocetka).toLocaleString('hr-HR') %>
+                      </td>
+
+                      <td>
+                        <%= dogadanje.lokacija %>
+                      </td>
+
+                      <td>
+                        <% if (Number(dogadanje.status_objave) === 1) { %>
+                          <span class="badge text-bg-success">
+                            Objavljeno
+                          </span>
+                        <% } else { %>
+                          <span class="badge text-bg-secondary">
+                            Skica
+                          </span>
+                        <% } %>
+                      </td>
+
+                      <td class="text-end">
+
+                        <a
+                          href="/admin/dogadanja/<%= dogadanje.id %>/uredi"
+                          class="btn btn-sm btn-outline-dark"
+                        >
+                          Uredi
+                        </a>
+
+                        <form
+                          method="POST"
+                          action="/admin/dogadanja/<%= dogadanje.id %>/obrisi"
+                          class="d-inline"
+                          onsubmit="return confirm('Jeste li sigurni da želite obrisati događanje „<%= dogadanje.naziv %>”?');"
+                        >
+                          <button
+                            type="submit"
+                            class="btn btn-sm btn-outline-danger"
+                          >
+                            Obriši
+                          </button>
+                        </form>
+
+                      </td>
+
+                    </tr>
+
+                  <% }) %>
+
+                </tbody>
+
+              </table>
+
+            </div>
+
+          </div>
+        </div>
+
+      <% } else { %>
+
+        <div class="alert alert-info">
+          U sustavu još nema događanja.
+        </div>
+
+      <% } %>
+
+<%- include('../partials/footer') %>

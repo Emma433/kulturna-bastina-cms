@@ -1,0 +1,147 @@
+<%- include('partials/head', { title: 'Nadzorna ploča' }) %>
+
+<div class="admin-layout">
+
+  <%- include('partials/sidebar') %>
+
+  <div class="admin-main">
+
+    <%- include('partials/header', { korisnickoIme }) %>
+
+    <main class="admin-content">
+
+      <%- include('partials/messages') %>
+
+      <div class="mb-5">
+        <h1 class="fw-bold mb-2">
+          Nadzorna ploča
+        </h1>
+
+        <p class="text-muted mb-0">
+          Pregled sadržaja i upravljanje aplikacijom Baština Punta.
+        </p>
+      </div>
+
+      <section class="row g-4 mb-5">
+
+        <div class="col-sm-6 col-xl-3">
+          <article class="card admin-stat-card h-100">
+            <div class="card-body p-4">
+
+              <p class="text-muted mb-2">
+                Ukupno običaja
+              </p>
+
+              <p class="admin-stat-number mb-0">
+                <%= statistika.ukupnoObicaja %>
+              </p>
+
+            </div>
+          </article>
+        </div>
+
+        <div class="col-sm-6 col-xl-3">
+          <article class="card admin-stat-card h-100">
+            <div class="card-body p-4">
+
+              <p class="text-muted mb-2">
+                Objavljeni običaji
+              </p>
+
+              <p class="admin-stat-number mb-0">
+                <%= statistika.objavljeniObicaji %>
+              </p>
+
+            </div>
+          </article>
+        </div>
+
+        <div class="col-sm-6 col-xl-3">
+          <article class="card admin-stat-card h-100">
+            <div class="card-body p-4">
+
+              <p class="text-muted mb-2">
+                Ukupno događanja
+              </p>
+
+              <p class="admin-stat-number mb-0">
+                <%= statistika.ukupnoDogadanja %>
+              </p>
+
+            </div>
+          </article>
+        </div>
+
+        <div class="col-sm-6 col-xl-3">
+          <article class="card admin-stat-card h-100">
+            <div class="card-body p-4">
+
+              <p class="text-muted mb-2">
+                Buduća događanja
+              </p>
+
+              <p class="admin-stat-number mb-0">
+                <%= statistika.buducaDogadanja %>
+              </p>
+
+            </div>
+          </article>
+        </div>
+
+      </section>
+
+      <section class="row g-4">
+
+        <div class="col-md-6">
+
+          <article class="card admin-dashboard-card h-100">
+            <div class="card-body p-4">
+
+              <h2 class="h4">
+                Upravljanje običajima
+              </h2>
+
+              <p class="text-muted">
+                Dodavanje, uređivanje i brisanje sadržaja o običajima.
+              </p>
+
+              <a
+                href="/admin/obicaji"
+                class="btn btn-dark"
+              >
+                Otvori običaje
+              </a>
+
+            </div>
+          </article>
+
+        </div>
+
+        <div class="col-md-6">
+
+          <article class="card admin-dashboard-card h-100">
+            <div class="card-body p-4">
+
+              <h2 class="h4">
+                Upravljanje događanjima
+              </h2>
+
+              <p class="text-muted">
+                Dodavanje, uređivanje i brisanje termina održavanja.
+              </p>
+
+              <a
+                href="/admin/dogadanja"
+                class="btn btn-dark"
+              >
+                Otvori događanja
+              </a>
+
+            </div>
+          </article>
+
+        </div>
+
+      </section>
+
+<%- include('partials/footer') %>
