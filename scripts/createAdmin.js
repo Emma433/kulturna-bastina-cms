@@ -5,9 +5,15 @@ const db = require('../config/db');
 
 async function createAdmin() {
   try {
-    const korisnickoIme = 'emma';
-    const email = 'emma.znidaric1234@gmail.com';
-    const lozinka = 'Lozinka123!';
+    const korisnickoIme = process.env.ADMIN_USERNAME;
+    const email = process.env.ADMIN_EMAIL;
+    const lozinka = process.env.ADMIN_PASSWORD;
+
+    if (!korisnickoIme || !email || !lozinka) {
+      throw new Error(
+        'Nedostaju ADMIN_USERNAME, ADMIN_EMAIL ili ADMIN_PASSWORD u .env datoteci.'
+      );
+    }
 
     const lozinkaHash = await bcrypt.hash(lozinka, 12);
 
