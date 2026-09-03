@@ -1,5 +1,10 @@
 const express = require('express');
+
 const router = express.Router();
+
+const adminFotografijeController = require(
+  '../controllers/adminFotografijeController'
+);
 
 const adminController = require(
   '../controllers/adminController'
@@ -9,6 +14,10 @@ const adminDogadanjaController = require(
   '../controllers/adminDogadanjaController'
 );
 
+const adminDogadanjeFotografijeController = require(
+  '../controllers/adminDogadanjeFotografijeController'
+);
+
 const {
   requireAdmin,
 } = require('../middlewares/authMiddleware');
@@ -16,6 +25,7 @@ const {
 const upload = require(
   '../middlewares/uploadMiddleware'
 );
+
 
 /* Prijava i odjava */
 
@@ -35,6 +45,7 @@ router.post(
   adminController.logout
 );
 
+
 /* Nadzorna ploča */
 
 router.get(
@@ -42,6 +53,7 @@ router.get(
   requireAdmin,
   adminController.dashboard
 );
+
 
 /* Upravljanje običajima */
 
@@ -83,6 +95,29 @@ router.post(
   adminController.deleteObicaj
 );
 
+
+/* Fotografije običaja */
+
+router.get(
+  '/obicaji/:obicajId/fotografije',
+  requireAdmin,
+  adminFotografijeController.index
+);
+
+router.post(
+  '/obicaji/:obicajId/fotografije',
+  requireAdmin,
+  upload.single('fotografija'),
+  adminFotografijeController.create
+);
+
+router.post(
+  '/obicaji/:obicajId/fotografije/:id/obrisi',
+  requireAdmin,
+  adminFotografijeController.delete
+);
+
+
 /* Upravljanje događanjima */
 
 router.get(
@@ -100,6 +135,7 @@ router.get(
 router.post(
   '/dogadanja',
   requireAdmin,
+  upload.single('naslovna_slika'),
   adminDogadanjaController.create
 );
 
@@ -112,6 +148,7 @@ router.get(
 router.post(
   '/dogadanja/:id/uredi',
   requireAdmin,
+  upload.single('naslovna_slika'),
   adminDogadanjaController.update
 );
 
@@ -120,5 +157,28 @@ router.post(
   requireAdmin,
   adminDogadanjaController.delete
 );
+
+
+/* Fotografije događanja */
+
+router.get(
+  '/dogadanja/:dogadanjeId/fotografije',
+  requireAdmin,
+  adminDogadanjeFotografijeController.index
+);
+
+router.post(
+  '/dogadanja/:dogadanjeId/fotografije',
+  requireAdmin,
+  upload.single('fotografija'),
+  adminDogadanjeFotografijeController.create
+);
+
+router.post(
+  '/dogadanja/:dogadanjeId/fotografije/:id/obrisi',
+  requireAdmin,
+  adminDogadanjeFotografijeController.delete
+);
+
 
 module.exports = router;

@@ -80,9 +80,19 @@ exports.show = async (req, res) => {
       [id]
     );
 
+
+    const [fotografije] = await db.query(
+      `SELECT *
+      FROM fotografije
+      WHERE obicaj_id = ?
+      ORDER BY created_at DESC`,
+      [id]
+    );
+
     res.render('obicaj-detalji', {
       obicaj,
       dogadanja,
+      fotografije,
     });
   } catch (error) {
     console.error('Greška pri dohvaćanju detalja običaja:', error.message);

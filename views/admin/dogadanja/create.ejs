@@ -29,7 +29,7 @@
       <div class="card border-0 shadow-sm">
         <div class="card-body p-4">
 
-          <form method="POST" action="/admin/dogadanja">
+          <form method="POST" action="/admin/dogadanja" enctype="multipart/form-data" >
 
             <div class="mb-3">
               <label for="obicaj_id" class="form-label">
@@ -134,7 +134,24 @@
                 maxlength="150"
               >
             </div>
+            <div class="mb-3">
+              <label for="naslovna_slika" class="form-label">
+                Naslovna slika
+              </label>
 
+              <input
+                type="file"
+                class="form-control"
+                id="naslovna_slika"
+                name="naslovna_slika"
+                accept=".jpg,.jpeg,.png,.webp"
+              >
+
+              <div class="form-text">
+                Dopušteni formati su JPG, PNG i WEBP.
+                Najveća veličina datoteke je 5 MB.
+              </div>
+            </div>
             <div class="mb-4">
               <label for="status_objave" class="form-label">
                 Status

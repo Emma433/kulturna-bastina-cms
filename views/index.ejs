@@ -5,183 +5,322 @@
 <header class="hero-section">
   <div class="container">
     <div class="hero-content">
-      <h1 class="display-4 fw-bold">
-        Nematerijalna kulturna baština Punta
+
+      <span class="hero-eyebrow">
+        Digitalna baština mjesta Punat
+      </span>
+
+      <h1 class="display-3 fw-bold mt-3">
+        Priče, običaji i tradicije koje žive i danas
       </h1>
 
-      <p class="lead mt-3">
-        Otkrijte običaje, tradicije i događanja koja čuvaju identitet mjesta Punat.
+      <p class="lead mt-4">
+        Upoznajte nematerijalnu kulturnu baštinu Punta kroz običaje,
+        fotografije i događanja koja oblikuju identitet lokalne zajednice.
       </p>
 
-      <a href="/obicaji" class="btn btn-light btn-lg mt-3">
-        Pregledaj običaje
-      </a>
+      <div class="d-flex flex-column flex-sm-row gap-3 mt-4">
+
+        <a href="/obicaji" class="btn btn-light btn-lg">
+          Istraži običaje
+        </a>
+
+        <a href="/dogadanja" class="btn btn-outline-light btn-lg">
+          Pogledaj događanja
+        </a>
+
+      </div>
     </div>
   </div>
 </header>
 
 <main>
-  <section class="container py-5">
-    <h2 class="section-title">Istaknuti običaji</h2>
 
-    <div class="row g-4">
+  <section class="intro-section">
+    <div class="container">
+
+      <div class="row align-items-center g-5">
+
+        <div class="col-lg-7">
+
+          <span class="section-kicker">
+            O projektu
+          </span>
+
+          <h2 class="display-6 fw-bold mt-2">
+            Digitalni prostor za očuvanje puntarskih običaja
+          </h2>
+
+          <p class="lead text-muted mt-3">
+            Aplikacija objedinjuje trajne zapise o običajima i konkretne
+            termine njihova održavanja. Na taj način istodobno služi kao
+            digitalni arhiv i kalendar živih tradicija.
+          </p>
+
+          <a href="/o-projektu" class="btn btn-outline-dark mt-2">
+            Saznaj više o projektu
+          </a>
+
+        </div>
+
+        <div class="col-lg-5">
+
+          <div class="intro-highlight-card">
+
+            <p class="intro-highlight-number">
+              Punat
+            </p>
+
+            <p class="mb-0">
+              Mjesto bogate tradicije, lokalnih običaja i događanja
+              koja se prenose među generacijama.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <section class="container py-5">
+
+    <div class="section-heading-row">
+
+      <div>
+        <span class="section-kicker">
+          Digitalni arhiv
+        </span>
+
+        <h2 class="fw-bold mt-2 mb-2">
+          Istaknuti običaji
+        </h2>
+
+        <p class="text-muted mb-0">
+          Upoznajte dio puntarske nematerijalne kulturne baštine.
+        </p>
+      </div>
+
+      <a href="/obicaji" class="btn btn-outline-dark">
+        Svi običaji
+      </a>
+
+    </div>
+
+    <div class="row g-4 mt-2">
+
       <% if (obicaji && obicaji.length > 0) { %>
 
-        <% obicaji.slice(0, 3).forEach(obicaj => { %>
+        <% obicaji.forEach(obicaj => { %>
+
           <div class="col-md-6 col-lg-4">
-            <article class="card custom-card">
 
-              <% if (obicaj.naslovna_slika) { %>
-                <img
-                  src="/images/<%= obicaj.naslovna_slika %>"
-                  class="card-img-top"
-                  alt="<%= obicaj.naziv %>"
-                >
-              <% } %>
+            <article class="card heritage-card">
 
-              <div class="card-body d-flex flex-column">
-                <h3 class="card-title h5">
+              <div class="heritage-card-image-wrapper">
+
+                <% if (obicaj.naslovna_slika) { %>
+
+                  <img
+                    src="/images/<%= obicaj.naslovna_slika %>"
+                    class="heritage-card-image"
+                    alt="<%= obicaj.naziv %>"
+                  >
+
+                <% } else { %>
+
+                  <div class="heritage-card-placeholder">
+                    Baština Punta
+                  </div>
+
+                <% } %>
+
+              </div>
+
+              <div class="card-body d-flex flex-column p-4">
+
+                <span class="heritage-card-label">
+                  Puntarski običaj
+                </span>
+
+                <h3 class="h4 mt-2">
                   <%= obicaj.naziv %>
                 </h3>
 
-                <p class="card-text">
+                <p class="text-muted">
                   <%= obicaj.kratki_opis %>
                 </p>
 
                 <a
                   href="/obicaji/<%= obicaj.id %>"
-                  class="btn btn-dark mt-auto"
+                  class="heritage-card-link mt-auto"
                 >
                   Pročitaj više
+                  <span aria-hidden="true">→</span>
                 </a>
+
               </div>
+
             </article>
+
           </div>
+
         <% }) %>
 
       <% } else { %>
-        <p class="text-center">
-          Trenutačno nema objavljenih običaja.
-        </p>
+
+        <div class="col-12">
+          <div class="alert alert-info">
+            Trenutačno nema objavljenih običaja.
+          </div>
+        </div>
+
       <% } %>
+
     </div>
+
   </section>
 
+  <section class="events-home-section">
 
-  <section class="bg-white py-5">
-  <div class="container">
+    <div class="container">
 
-    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4">
-      <div>
-        <h2 class="fw-bold mb-2">Nadolazeća događanja</h2>
+      <div class="section-heading-row mb-4">
 
-        <p class="text-muted mb-0">
-          Pogledajte sljedeća održavanja puntarskih običaja.
-        </p>
+        <div>
+          <span class="section-kicker section-kicker-light">
+            Kalendar
+          </span>
+
+          <h2 class="fw-bold text-white mt-2 mb-2">
+            Nadolazeća događanja
+          </h2>
+
+          <p class="text-white-50 mb-0">
+            Pogledajte sljedeća održavanja puntarskih običaja.
+          </p>
+        </div>
+
+        <a href="/dogadanja" class="btn btn-outline-light">
+          Sva događanja
+        </a>
+
       </div>
 
-      <a
-        href="/dogadanja"
-        class="btn btn-outline-dark mt-3 mt-md-0"
-      >
-        Pogledaj sva događanja
-      </a>
-    </div>
+      <% if (dogadanja && dogadanja.length > 0) { %>
 
-    <% if (dogadanja && dogadanja.length > 0) { %>
+        <div class="row g-4">
 
-      <div class="row g-4">
+          <% dogadanja.forEach(dogadanje => { %>
 
-        <% dogadanja.forEach(dogadanje => { %>
+            <% const datum = new Date(dogadanje.datum_pocetka); %>
 
-          <% const datum = new Date(dogadanje.datum_pocetka); %>
+            <div class="col-md-6 col-lg-4">
 
-          <div class="col-md-6 col-lg-4">
+              <article class="home-event-card">
 
-            <article class="card event-card h-100">
+                <div class="home-event-date">
 
-              <div class="card-body d-flex flex-column p-4">
-
-                <div class="event-date-box mb-3">
-
-                  <span class="event-day">
+                  <span class="home-event-day">
                     <%= datum.toLocaleDateString('hr-HR', {
                       day: '2-digit'
                     }) %>
                   </span>
 
-                  <span class="event-month">
+                  <span class="home-event-month">
                     <%= datum.toLocaleDateString('hr-HR', {
-                      month: 'long'
+                      month: 'short'
                     }) %>
-                  </span>
-
-                  <span class="event-year">
-                    <%= datum.getFullYear() %>
                   </span>
 
                 </div>
 
-                <h3 class="h5">
-                  <%= dogadanje.naziv %>
-                </h3>
+                <div class="home-event-content">
 
-                <p class="text-muted mb-2">
-                  <%= dogadanje.naziv_obicaja %>
-                </p>
+                  <p class="home-event-custom mb-2">
+                    <%= dogadanje.naziv_obicaja %>
+                  </p>
 
-                <p class="mb-2">
-                  <strong>Vrijeme:</strong>
-                  <%= datum.toLocaleTimeString('hr-HR', {
-                    hour: '2-digit',
-                    minute: '2-digit'
-                  }) %>
-                </p>
+                  <h3 class="h5 text-white">
+                    <%= dogadanje.naziv %>
+                  </h3>
 
-                <p class="mb-3">
-                  <strong>Lokacija:</strong>
-                  <%= dogadanje.lokacija %>
-                </p>
+                  <p class="text-white-50 mb-2">
+                    <%= dogadanje.lokacija %>
+                  </p>
+
+                  <p class="text-white-50 mb-0">
+                    <%= datum.toLocaleTimeString('hr-HR', {
+                      hour: '2-digit',
+                      minute: '2-digit'
+                    }) %>
+                  </p>
+
+                </div>
 
                 <a
                   href="/obicaji/<%= dogadanje.obicaj_id %>"
-                  class="btn btn-dark mt-auto"
+                  class="home-event-arrow"
+                  aria-label="Otvori povezani običaj"
                 >
-                  Saznaj više
+                  →
                 </a>
 
-              </div>
+              </article>
 
-            </article>
+            </div>
 
-          </div>
+          <% }) %>
 
-        <% }) %>
+        </div>
 
-      </div>
+      <% } else { %>
 
-    <% } else { %>
+        <p class="text-white-50">
+          Trenutačno nema objavljenih budućih događanja.
+        </p>
 
-      <div class="alert alert-info">
-        Trenutačno nema objavljenih budućih događanja.
-      </div>
+      <% } %>
 
-    <% } %>
-
-  </div>
-</section>
-
-  <section class="bg-white py-5">
-    <div class="container text-center">
-      <h2>O projektu</h2>
-
-      <p class="mx-auto mt-3" style="max-width: 760px;">
-        Projekt je razvijen radi digitalnog očuvanja i prezentacije živih običaja,
-        tradicija i događanja mjesta Punat. Aplikacija istodobno služi kao
-        digitalni arhiv i kalendar budućih održavanja.
-      </p>
     </div>
+
   </section>
+
+  <section class="cta-section">
+
+    <div class="container">
+
+      <div class="cta-box">
+
+        <div>
+
+          <span class="section-kicker">
+            Živa baština
+          </span>
+
+          <h2 class="fw-bold mt-2 mb-2">
+            Otkrijte Punat i izvan ljetne sezone
+          </h2>
+
+          <p class="text-muted mb-0">
+            Lokalni običaji omogućuju bolje razumijevanje zajednice,
+            njezine povijesti i načina života.
+          </p>
+
+        </div>
+
+        <a href="/obicaji" class="btn btn-dark btn-lg">
+          Započni istraživanje
+        </a>
+
+      </div>
+
+    </div>
+
+  </section>
+
 </main>
 
 <%- include('partials/footer') %>

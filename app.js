@@ -39,6 +39,7 @@ app.use(
 
 app.use((req, res, next) => {
   res.locals.currentPath = req.path;
+  res.locals.adminPrijavljen = !!req.session.adminId;
   next();
 });
 

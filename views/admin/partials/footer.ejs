@@ -1,14 +1,34 @@
-  </main>
-</div>
-
 <script>
-  const menuButton = document.getElementById('adminMenuButton');
-  const sidebar = document.querySelector('.admin-sidebar');
+  const menuButton =
+    document.getElementById('adminMenuButton');
 
-  if (menuButton && sidebar) {
+  const sidebar =
+    document.querySelector('.admin-sidebar');
+
+  const sidebarOverlay =
+    document.getElementById('adminSidebarOverlay');
+
+  function closeAdminMenu() {
+    sidebar?.classList.remove('admin-sidebar-open');
+    sidebarOverlay?.classList.remove('active');
+  }
+
+  if (menuButton && sidebar && sidebarOverlay) {
     menuButton.addEventListener('click', () => {
       sidebar.classList.toggle('admin-sidebar-open');
+      sidebarOverlay.classList.toggle('active');
     });
+
+    sidebarOverlay.addEventListener(
+      'click',
+      closeAdminMenu
+    );
+
+    sidebar
+      .querySelectorAll('a')
+      .forEach((link) => {
+        link.addEventListener('click', closeAdminMenu);
+      });
   }
 </script>
 

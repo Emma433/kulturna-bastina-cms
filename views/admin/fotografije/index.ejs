@@ -1,0 +1,195 @@
+<%- include('../partials/head', { title: 'Fotografije događanja' }) %>
+
+<div class="admin-layout">
+
+  <%- include('../partials/sidebar') %>
+
+  <div class="admin-main">
+
+    <%- include('../partials/header', { korisnickoIme }) %>
+
+    <main class="admin-content">
+
+      <%- include('../partials/messages') %>
+
+      <div class="d-flex flex-column flex-lg-row justify-content-between align-items-lg-center mb-4">
+
+        <div>
+          <h1 class="fw-bold mb-2">
+            Fotografije događanja
+          </h1>
+
+          <p class="text-muted mb-0">
+            Upravljanje fotografijama za događanje
+            <strong><%= dogadanje.naziv %></strong>.
+          </p>
+        </div>
+
+        <a
+          href="/admin/dogadanja"
+          class="btn btn-outline-secondary mt-3 mt-lg-0"
+        >
+          ← Povratak na događanja
+        </a>
+
+      </div>
+
+      <section class="card border-0 shadow-sm mb-5">
+
+        <div class="card-body p-4">
+
+          <h2 class="h4 mb-4">
+            Dodaj fotografiju
+          </h2>
+
+          <form
+            method="POST"
+            action="/admin/dogadanja/<%= dogadanje.id %>/fotografije"
+            enctype="multipart/form-data"
+          >
+
+            <div class="row align-items-end">
+
+              <div class="col-lg-5 mb-3">
+
+                <label
+                  for="fotografija"
+                  class="form-label"
+                >
+                  Fotografija *
+                </label>
+
+                <input
+                  type="file"
+                  class="form-control"
+                  id="fotografija"
+                  name="fotografija"
+                  accept=".jpg,.jpeg,.png,.webp"
+                  required
+                >
+
+              </div>
+
+              <div class="col-lg-5 mb-3">
+
+                <label
+                  for="opis"
+                  class="form-label"
+                >
+                  Opis fotografije
+                </label>
+
+                <input
+                  type="text"
+                  class="form-control"
+                  id="opis"
+                  name="opis"
+                  maxlength="255"
+                  placeholder="Primjerice: Četvrtak bez struje 2026."
+                >
+
+              </div>
+
+              <div class="col-lg-2 mb-3">
+
+                <button
+                  type="submit"
+                  class="btn btn-dark w-100"
+                >
+                  Dodaj
+                </button>
+
+              </div>
+
+            </div>
+
+            <div class="form-text">
+              Dopušteni formati su JPG, PNG i WEBP.
+              Najveća veličina datoteke je 5 MB.
+            </div>
+
+          </form>
+
+        </div>
+
+      </section>
+
+      <section>
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+
+          <h2 class="h4 mb-0">
+            Fotografije
+          </h2>
+
+          <span class="text-muted">
+            Ukupno fotografija:
+            <strong><%= fotografije.length %></strong>
+          </span>
+
+        </div>
+
+        <% if (fotografije.length > 0) { %>
+
+          <div class="row g-4">
+
+            <% fotografije.forEach(fotografija => { %>
+
+              <div class="col-sm-6 col-lg-4 col-xl-3">
+
+                <article class="card h-100 border-0 shadow-sm">
+
+                  <img
+                    src="/images/<%= fotografija.putanja %>"
+                    class="card-img-top admin-gallery-image"
+                    alt="<%= fotografija.opis || dogadanje.naziv %>"
+                  >
+
+                  <div class="card-body d-flex flex-column">
+
+                    <p class="card-text">
+                      <%= fotografija.opis || 'Fotografija bez opisa' %>
+                    </p>
+
+                    <p class="text-muted small">
+                      Dodano:
+                      <%= new Date(fotografija.created_at).toLocaleDateString('hr-HR') %>
+                    </p>
+
+                    <form
+                      method="POST"
+                      action="/admin/dogadanja/<%= dogadanje.id %>/fotografije/<%= fotografija.id %>/obrisi"
+                      class="mt-auto"
+                      onsubmit="return confirm('Jeste li sigurni da želite obrisati ovu fotografiju?');"
+                    >
+
+                      <button
+                        type="submit"
+                        class="btn btn-outline-danger w-100"
+                      >
+                        Obriši fotografiju
+                      </button>
+
+                    </form>
+
+                  </div>
+
+                </article>
+
+              </div>
+
+            <% }) %>
+
+          </div>
+
+        <% } else { %>
+
+          <div class="alert alert-info">
+            Za ovo događanje još nema dodatnih fotografija.
+          </div>
+
+        <% } %>
+
+      </section>
+
+<%- include('../partials/footer') %>

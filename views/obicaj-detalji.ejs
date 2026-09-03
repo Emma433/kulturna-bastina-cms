@@ -3,6 +3,7 @@
 <%- include('partials/navbar') %>
 
 <main>
+
   <section class="container py-5">
 
     <a href="/obicaji" class="btn btn-outline-dark mb-4">
@@ -32,72 +33,293 @@
         <hr class="my-4">
 
         <section class="mb-5">
+
           <h2 class="h4">Opis običaja</h2>
 
           <p class="detail-text">
             <%= obicaj.detaljni_opis %>
           </p>
+
         </section>
 
         <% if (obicaj.povijest) { %>
+
           <section class="mb-5">
+
             <h2 class="h4">Povijest</h2>
 
             <p class="detail-text">
               <%= obicaj.povijest %>
             </p>
+
           </section>
+
         <% } %>
 
+
+        <% if (fotografije && fotografije.length > 0) { %>
+
+          <section class="mb-5">
+
+            <h2 class="h4 mb-4">
+              Galerija fotografija
+            </h2>
+
+            <div class="row g-4">
+
+              <% fotografije.forEach((fotografija) => { %>
+
+                <div class="col-sm-6 col-lg-4">
+
+                  <figure class="gallery-card mb-0">
+
+                    <button
+                      type="button"
+                      class="gallery-button"
+                      data-bs-toggle="modal"
+                      data-bs-target="#galerijaModal"
+                      data-image="/images/<%= fotografija.naziv_datoteke %>"
+                      data-description="<%= fotografija.opis || obicaj.naziv %>"
+                      aria-label="Otvori fotografiju: <%= fotografija.opis || obicaj.naziv %>"
+                    >
+
+                      <img
+                        src="/images/<%= fotografija.naziv_datoteke %>"
+                        alt="<%= fotografija.opis || obicaj.naziv %>"
+                        class="gallery-image"
+                      >
+
+                    </button>
+
+                    <% if (fotografija.opis) { %>
+
+                      <figcaption class="gallery-caption">
+                        <%= fotografija.opis %>
+                      </figcaption>
+
+                    <% } %>
+
+                  </figure>
+
+                </div>
+
+              <% }) %>
+
+            </div>
+
+          </section>
+
+
+          <div
+            class="modal fade"
+            id="galerijaModal"
+            tabindex="-1"
+            aria-labelledby="galerijaModalNaslov"
+            aria-hidden="true"
+          >
+
+            <div class="modal-dialog modal-xl modal-dialog-centered">
+
+              <div class="modal-content">
+
+                <div class="modal-header">
+
+                  <h2
+                    class="modal-title fs-5"
+                    id="galerijaModalNaslov"
+                  >
+                    Fotografija
+                  </h2>
+
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Zatvori"
+                  ></button>
+
+                </div>
+
+                <div class="modal-body text-center">
+
+                  <img
+                    id="galerijaModalSlika"
+                    src=""
+                    alt=""
+                    class="img-fluid rounded gallery-modal-image"
+                  >
+
+                  <p
+                    id="galerijaModalOpis"
+                    class="text-muted mt-3 mb-0"
+                  ></p>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        <% } %>
+
+
         <section class="mb-5">
-          <h2 class="h4">Osnovne informacije</h2>
+
+          <h2 class="h4">
+            Osnovne informacije
+          </h2>
 
           <dl class="row mt-3">
 
             <% if (obicaj.mjesto) { %>
-              <dt class="col-sm-3">Mjesto</dt>
-              <dd class="col-sm-9"><%= obicaj.mjesto %></dd>
+
+              <dt class="col-sm-3">
+                Mjesto
+              </dt>
+
+              <dd class="col-sm-9">
+                <%= obicaj.mjesto %>
+              </dd>
+
             <% } %>
 
+
             <% if (obicaj.organizator) { %>
-              <dt class="col-sm-3">Organizator</dt>
-              <dd class="col-sm-9"><%= obicaj.organizator %></dd>
+
+              <dt class="col-sm-3">
+                Organizator
+              </dt>
+
+              <dd class="col-sm-9">
+                <%= obicaj.organizator %>
+              </dd>
+
             <% } %>
 
           </dl>
+
         </section>
 
-        <section>
-          <h2 class="h4">Održavanja</h2>
 
-          <% if (dogadanja.length > 0) { %>
+        <section>
+
+          <h2 class="h4">
+            Održavanja
+          </h2>
+
+
+          <% if (dogadanja && dogadanja.length > 0) { %>
 
             <div class="list-group mt-3">
 
-              <% dogadanja.forEach(dogadanje => { %>
+              <% dogadanja.forEach((dogadanje) => { %>
 
-                <div class="list-group-item py-3">
+                <div class="list-group-item py-4">
 
-                  <h3 class="h6 mb-2">
-                    <%= dogadanje.naziv %>
-                  </h3>
+                  <div class="row g-4 align-items-center">
 
-                  <p class="mb-1">
-                    <strong>Početak:</strong>
-                    <%= new Date(dogadanje.datum_pocetka).toLocaleString('hr-HR') %>
-                  </p>
 
-                  <% if (dogadanje.datum_zavrsetka) { %>
-                    <p class="mb-1">
-                      <strong>Završetak:</strong>
-                      <%= new Date(dogadanje.datum_zavrsetka).toLocaleString('hr-HR') %>
-                    </p>
-                  <% } %>
+                    <% if (dogadanje.naslovna_slika) { %>
 
-                  <p class="mb-0">
-                    <strong>Lokacija:</strong>
-                    <%= dogadanje.lokacija %>
-                  </p>
+                      <div class="col-md-4">
+
+                        <a
+                          href="/dogadanja/<%= dogadanje.id %>"
+                          class="d-block"
+                        >
+
+                          <img
+                            src="/images/<%= dogadanje.naslovna_slika %>"
+                            alt="<%= dogadanje.naziv %>"
+                            class="img-fluid rounded w-100"
+                            style="height: 190px; object-fit: cover;"
+                          >
+
+                        </a>
+
+                      </div>
+
+                    <% } %>
+
+
+                    <div
+                      class="<%= dogadanje.naslovna_slika ? 'col-md-8' : 'col-12' %>"
+                    >
+
+                      <h3 class="h5 mb-3">
+
+                        <a
+                          href="/dogadanja/<%= dogadanje.id %>"
+                          class="text-dark text-decoration-none"
+                        >
+                          <%= dogadanje.naziv %>
+                        </a>
+
+                      </h3>
+
+
+                      <% if (dogadanje.opis) { %>
+
+                        <p class="text-muted mb-3">
+                          <%= dogadanje.opis %>
+                        </p>
+
+                      <% } %>
+
+
+                      <p class="mb-1">
+
+                        <strong>
+                          Početak:
+                        </strong>
+
+                        <%= new Date(
+                          dogadanje.datum_pocetka
+                        ).toLocaleString('hr-HR') %>
+
+                      </p>
+
+
+                      <% if (dogadanje.datum_zavrsetka) { %>
+
+                        <p class="mb-1">
+
+                          <strong>
+                            Završetak:
+                          </strong>
+
+                          <%= new Date(
+                            dogadanje.datum_zavrsetka
+                          ).toLocaleString('hr-HR') %>
+
+                        </p>
+
+                      <% } %>
+
+
+                      <p class="mb-3">
+
+                        <strong>
+                          Lokacija:
+                        </strong>
+
+                        <%= dogadanje.lokacija %>
+
+                      </p>
+
+
+                      <a
+                        href="/dogadanja/<%= dogadanje.id %>"
+                        class="btn btn-outline-dark"
+                      >
+                        Pogledaj događanje
+                      </a>
+
+                    </div>
+
+                  </div>
 
                 </div>
 
@@ -112,12 +334,82 @@
             </p>
 
           <% } %>
+
         </section>
 
       </div>
+
     </article>
 
   </section>
+
 </main>
+
+
+<script>
+
+  document.addEventListener('DOMContentLoaded', () => {
+
+    const modal = document.getElementById('galerijaModal');
+
+    if (!modal) {
+      return;
+    }
+
+
+    modal.addEventListener('show.bs.modal', (event) => {
+
+      const button = event.relatedTarget;
+
+      if (!button) {
+        return;
+      }
+
+
+      const imagePath =
+        button.getAttribute('data-image');
+
+      const description =
+        button.getAttribute('data-description');
+
+
+      const modalImage =
+        document.getElementById('galerijaModalSlika');
+
+      const modalDescription =
+        document.getElementById('galerijaModalOpis');
+
+      const modalTitle =
+        document.getElementById('galerijaModalNaslov');
+
+
+      modalImage.src = imagePath;
+
+      modalImage.alt = description;
+
+      modalDescription.textContent =
+        description;
+
+      modalTitle.textContent =
+        description;
+
+    });
+
+
+    modal.addEventListener('hidden.bs.modal', () => {
+
+      const modalImage =
+        document.getElementById('galerijaModalSlika');
+
+      modalImage.src = '';
+
+      modalImage.alt = '';
+
+    });
+
+  });
+
+</script>
+
 
 <%- include('partials/footer') %>

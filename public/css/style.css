@@ -271,3 +271,885 @@ background:
 .navbar .nav-link.active {
   font-weight: 600;
 }
+
+.admin-gallery-image {
+  height: 220px;
+  object-fit: cover;
+}
+
+
+.gallery-card {
+  overflow: hidden;
+  border-radius: 0.75rem;
+  background-color: white;
+  box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.08);
+}
+
+.gallery-image {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+  display: block;
+}
+
+.gallery-caption {
+  padding: 0.85rem 1rem;
+  color: #495057;
+  font-size: 0.95rem;
+}
+
+
+.detail-cover-image {
+  max-height: 480px;
+  object-fit: cover;
+}
+
+.detail-text {
+  white-space: pre-line;
+  line-height: 1.8;
+}
+
+.gallery-card {
+  overflow: hidden;
+  border-radius: 0.75rem;
+  background-color: white;
+  box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.08);
+}
+
+.gallery-image {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+  display: block;
+}
+
+.gallery-caption {
+  padding: 0.85rem 1rem;
+  color: #495057;
+  font-size: 0.95rem;
+}
+
+.gallery-button {
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.gallery-button .gallery-image {
+  transition: transform 0.25s ease;
+}
+
+.gallery-button:hover .gallery-image,
+.gallery-button:focus-visible .gallery-image {
+  transform: scale(1.04);
+}
+
+.gallery-button:focus-visible {
+  outline: 3px solid #212529;
+  outline-offset: 3px;
+}
+
+.gallery-modal-image {
+  max-height: 75vh;
+  object-fit: contain;
+}
+
+/* Opće poboljšanje prikaza */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+}
+
+img {
+  max-width: 100%;
+}
+
+.card-title,
+h1,
+h2,
+h3 {
+  overflow-wrap: anywhere;
+}
+
+
+/* Navigacija */
+
+.navbar-brand {
+  letter-spacing: 0.02em;
+}
+
+.navbar .nav-link {
+  border-radius: 0.4rem;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+}
+
+.navbar .nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+
+/* Hero sekcija */
+
+.hero-section {
+  min-height: 70vh;
+  padding: 5rem 0;
+}
+
+.hero-content {
+  max-width: 760px;
+}
+
+.hero-content h1 {
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.45);
+}
+
+.hero-content p {
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.45);
+}
+
+
+/* Kartice običaja */
+
+.custom-card {
+  height: 100%;
+}
+
+.custom-card .card-body {
+  padding: 1.5rem;
+}
+
+.custom-card img {
+  width: 100%;
+}
+
+
+/* Detalji običaja */
+
+.detail-text {
+  overflow-wrap: anywhere;
+}
+
+.detail-cover-image {
+  width: 100%;
+}
+
+
+/* Tablice u administraciji */
+
+.table th,
+.table td {
+  vertical-align: middle;
+}
+
+.table td:last-child {
+  white-space: nowrap;
+}
+
+
+/* Administratorski bočni izbornik */
+
+.admin-sidebar {
+  overflow-y: auto;
+}
+
+.admin-sidebar form {
+  margin: 0;
+}
+
+.admin-logout-button {
+  font: inherit;
+}
+
+
+/* Tamna pozadina iza mobilnog sidebara */
+
+.admin-sidebar-overlay {
+  display: none;
+}
+
+
+/* Tablet prikaz */
+
+@media (max-width: 991.98px) {
+  .hero-section {
+    min-height: 60vh;
+    padding: 4rem 0;
+  }
+
+  .hero-content h1 {
+    font-size: 2.5rem;
+  }
+
+  .navbar .btn {
+    margin-top: 0.75rem;
+    width: 100%;
+  }
+
+  .admin-sidebar {
+    box-shadow: 0.5rem 0 1.5rem rgba(0, 0, 0, 0.2);
+  }
+
+  .admin-sidebar-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1040;
+    display: none;
+    background-color: rgba(0, 0, 0, 0.45);
+  }
+
+  .admin-sidebar-overlay.active {
+    display: block;
+  }
+
+  .admin-header {
+    position: sticky;
+    top: 0;
+    z-index: 1030;
+  }
+
+  .table td:last-child {
+    white-space: normal;
+  }
+
+  .table td:last-child .btn,
+  .table td:last-child form {
+    margin-top: 0.25rem;
+  }
+}
+
+
+/* Mobilni prikaz */
+
+@media (max-width: 767.98px) {
+  .hero-section {
+    min-height: 520px;
+    padding: 3.5rem 0;
+    text-align: center;
+  }
+
+  .hero-content {
+    margin: 0 auto;
+  }
+
+  .hero-content h1 {
+    font-size: 2.1rem;
+  }
+
+  .hero-content .lead {
+    font-size: 1.05rem;
+  }
+
+  .section-title {
+    font-size: 1.75rem;
+  }
+
+  .detail-cover-image {
+    max-height: 320px;
+  }
+
+  .gallery-image {
+    height: 220px;
+  }
+
+  .event-date-box {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .event-card {
+    text-align: center;
+  }
+
+  .admin-content {
+    padding: 1rem;
+  }
+
+  .admin-header {
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .admin-header > div {
+    font-size: 0.9rem;
+    text-align: right;
+  }
+
+  .admin-stat-number {
+    font-size: 2rem;
+  }
+
+  .table {
+    font-size: 0.9rem;
+  }
+
+  .site-footer {
+    margin-top: 2rem;
+  }
+}
+
+
+/* Vrlo mali ekrani */
+
+@media (max-width: 575.98px) {
+  .hero-content h1 {
+    font-size: 1.8rem;
+  }
+
+  .hero-content .btn {
+    width: 100%;
+  }
+
+  .card-body {
+    padding: 1.25rem;
+  }
+
+  .gallery-image {
+    height: 200px;
+  }
+
+  .admin-header {
+    padding: 0.75rem;
+  }
+
+  .admin-content h1 {
+    font-size: 1.75rem;
+  }
+
+  .btn {
+    white-space: normal;
+  }
+}
+
+
+:root {
+  --heritage-dark: #102A43;
+  --heritage-green: #2F5D7C;
+  --heritage-sage: #DCE8F0;
+  --heritage-sand: #EEF3F7;
+  --heritage-gold: #7FA6C2;
+  --heritage-text: #1C2F40;
+}
+
+body {
+  background-color: #f8f7f4;
+  color: var(--heritage-text);
+}
+
+.hero-section {
+  position: relative;
+  min-height: 82vh;
+  display: flex;
+  align-items: center;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(12, 27, 24, 0.82) 0%,
+      rgba(12, 27, 24, 0.62) 48%,
+      rgba(12, 27, 24, 0.28) 100%
+    ),
+    url('/images/punat-hero.jpg') center / cover no-repeat;
+}
+
+.hero-content {
+  max-width: 780px;
+}
+
+.hero-eyebrow,
+.section-kicker {
+  display: inline-block;
+  color: var(--heritage-gold);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.section-kicker-light {
+  color: #d9c39c;
+}
+
+.hero-section h1,
+.hero-section p {
+  color: white;
+}
+
+.intro-section {
+  padding: 6rem 0;
+  background-color: white;
+}
+
+.intro-highlight-card {
+  padding: 2.5rem;
+  border-radius: 1.25rem;
+  background-color: var(--heritage-sand);
+  box-shadow: 0 1rem 3rem rgba(16, 42, 67, 0.08);
+}
+
+.intro-highlight-number {
+  margin-bottom: 1rem;
+  color: var(--heritage-green);
+  font-size: 2.4rem;
+  font-weight: 700;
+}
+
+.section-heading-row {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.heritage-card {
+  height: 100%;
+  overflow: hidden;
+  border: 0;
+  border-radius: 1rem;
+  background-color: white;
+  box-shadow: 0 0.7rem 2rem rgba(16, 42, 67, 0.08);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.heritage-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 1.2rem 2.5rem rgba(16, 42, 67, 0.14);
+}
+
+.heritage-card-image-wrapper {
+  height: 260px;
+  overflow: hidden;
+}
+
+.heritage-card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.35s ease;
+}
+
+.heritage-card:hover .heritage-card-image {
+  transform: scale(1.04);
+}
+
+.heritage-card-placeholder {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--heritage-sage);
+  color: var(--heritage-green);
+  font-weight: 700;
+}
+
+.heritage-card-label {
+  color: var(--heritage-gold);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.heritage-card-link {
+  color: var(--heritage-green);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.heritage-card-link:hover {
+  color: var(--heritage-dark);
+}
+
+.events-home-section {
+  padding: 6rem 0;
+  background-color: var(--heritage-dark);
+}
+
+.home-event-card {
+  min-height: 180px;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 1rem;
+  background-color: rgba(255, 255, 255, 0.06);
+  transition:
+    transform 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.home-event-card:hover {
+  transform: translateY(-4px);
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.home-event-date {
+  min-width: 74px;
+  padding: 0.85rem 0.6rem;
+  border-radius: 0.8rem;
+  background-color: var(--heritage-gold);
+  color: white;
+  text-align: center;
+}
+
+.home-event-day {
+  display: block;
+  font-size: 1.7rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.home-event-month {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+}
+
+.home-event-content {
+  flex: 1;
+}
+
+.home-event-custom {
+  color: #d9c39c;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.home-event-arrow {
+  color: white;
+  font-size: 1.6rem;
+  text-decoration: none;
+}
+
+.cta-section {
+  padding: 6rem 0;
+}
+
+.cta-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 3rem;
+  border-radius: 1.25rem;
+  background-color: var(--heritage-sand);
+}
+
+.site-footer {
+  margin-top: 0;
+  background-color: var(--heritage-dark);
+}
+
+@media (max-width: 991.98px) {
+  .hero-section {
+    min-height: 72vh;
+  }
+
+  .section-heading-row,
+  .cta-box {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .hero-section {
+    min-height: 620px;
+    text-align: left;
+  }
+
+  .hero-section h1 {
+    font-size: 2.5rem;
+  }
+
+  .intro-section,
+  .events-home-section,
+  .cta-section {
+    padding: 4rem 0;
+  }
+
+  .heritage-card-image-wrapper {
+    height: 230px;
+  }
+
+  .home-event-card {
+    align-items: flex-start;
+  }
+
+  .cta-box {
+    padding: 2rem;
+  }
+
+  .cta-box .btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .hero-section h1 {
+    font-size: 2.1rem;
+  }
+
+  .hero-section .btn {
+    width: 100%;
+  }
+
+  .home-event-card {
+    flex-wrap: wrap;
+  }
+
+  .home-event-arrow {
+    margin-left: auto;
+  }
+}
+
+.heritage-card .text-muted {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+
+.home-event-arrow{
+    font-size:2rem;
+}
+
+
+/* =========================================================
+   JAVNA NAVIGACIJA - bolja vidljivost
+   ========================================================= */
+
+.navbar {
+  background-color: #102A43 !important;
+  box-shadow: 0 0.2rem 0.8rem rgba(0, 0, 0, 0.18);
+}
+
+.navbar .navbar-brand {
+  color: #ffffff !important;
+  font-weight: 700;
+}
+
+.navbar .nav-link {
+  color: rgba(255, 255, 255, 0.92) !important;
+}
+
+.navbar .nav-link:hover,
+.navbar .nav-link:focus,
+.navbar .nav-link.active {
+  color: #ffffff !important;
+  background-color: rgba(255, 255, 255, 0.12);
+}
+
+.navbar .navbar-toggler {
+  border-color: rgba(255, 255, 255, 0.75);
+}
+
+.navbar .navbar-toggler:focus {
+  box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.2);
+}
+
+.navbar .navbar-toggler-icon {
+  filter: brightness(0) invert(1);
+}
+
+/* Tamnoplava sekcija događanja i footer */
+.events-home-section,
+.site-footer {
+  background-color: var(--heritage-dark);
+}
+
+
+/* =========================================================
+   KOHEZIVNA PLAVA TEMA
+   Glavna boja: #102A43
+   ========================================================= */
+
+:root {
+  --heritage-dark: #102A43;
+  --heritage-green: #2F5D7C;
+  --heritage-sage: #DCE8F0;
+  --heritage-sand: #EEF3F7;
+  --heritage-gold: #7FA6C2;
+  --heritage-text: #1C2F40;
+  --heritage-border: #C9D8E3;
+  --heritage-soft: #F7FAFC;
+}
+
+/* Opća pozadina i tekst */
+body {
+  background-color: var(--heritage-soft);
+  color: var(--heritage-text);
+}
+
+a {
+  color: var(--heritage-green);
+}
+
+a:hover {
+  color: var(--heritage-dark);
+}
+
+/* Navigacija */
+.navbar {
+  background-color: var(--heritage-dark) !important;
+}
+
+.navbar .navbar-brand,
+.navbar .nav-link {
+  color: #ffffff !important;
+}
+
+/* Hero ostaje vizualno vezan uz more i tamnoplavu temu */
+.hero-section {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(16, 42, 67, 0.82) 0%,
+      rgba(16, 42, 67, 0.62) 48%,
+      rgba(16, 42, 67, 0.28) 100%
+    ),
+    url('/images/punat-hero.jpg') center / cover no-repeat;
+}
+
+.hero-eyebrow,
+.section-kicker {
+  color: #A9C6D9;
+}
+
+.section-kicker-light,
+.home-event-custom {
+  color: #C9DCE8;
+}
+
+/* Svijetle sekcije i istaknute kutije */
+.intro-section,
+.cta-section {
+  background-color: #ffffff;
+}
+
+.intro-highlight-card,
+.cta-box {
+  background-color: var(--heritage-sand);
+  box-shadow: 0 1rem 3rem rgba(16, 42, 67, 0.08);
+}
+
+.intro-highlight-number,
+.heritage-card-link {
+  color: var(--heritage-green);
+}
+
+/* Kartice */
+.heritage-card,
+.custom-card,
+.event-card,
+.gallery-card,
+.admin-dashboard-card,
+.admin-stat-card {
+  box-shadow: 0 0.7rem 2rem rgba(16, 42, 67, 0.08);
+}
+
+.heritage-card:hover,
+.custom-card:hover,
+.event-card:hover {
+  box-shadow: 0 1.2rem 2.5rem rgba(16, 42, 67, 0.14);
+}
+
+.heritage-card-placeholder {
+  background-color: var(--heritage-sage);
+  color: var(--heritage-green);
+}
+
+.heritage-card-label {
+  color: #5D87A5;
+}
+
+/* Događanja i footer */
+.events-home-section,
+.site-footer {
+  background-color: var(--heritage-dark);
+}
+
+.home-event-date,
+.event-date-box {
+  background-color: #2F5D7C;
+  color: #ffffff;
+}
+
+/* Gumbi */
+.btn-dark {
+  --bs-btn-bg: #102A43;
+  --bs-btn-border-color: #102A43;
+  --bs-btn-hover-bg: #163A59;
+  --bs-btn-hover-border-color: #163A59;
+  --bs-btn-active-bg: #0B2238;
+  --bs-btn-active-border-color: #0B2238;
+}
+
+.btn-outline-dark {
+  --bs-btn-color: #102A43;
+  --bs-btn-border-color: #102A43;
+  --bs-btn-hover-bg: #102A43;
+  --bs-btn-hover-border-color: #102A43;
+  --bs-btn-active-bg: #0B2238;
+  --bs-btn-active-border-color: #0B2238;
+}
+
+.btn-outline-primary {
+  --bs-btn-color: #2F5D7C;
+  --bs-btn-border-color: #2F5D7C;
+  --bs-btn-hover-bg: #2F5D7C;
+  --bs-btn-hover-border-color: #2F5D7C;
+}
+
+/* Administracija */
+.admin-sidebar {
+  background-color: var(--heritage-dark);
+}
+
+.admin-nav-link.active {
+  background-color: rgba(255, 255, 255, 0.16);
+}
+
+.admin-header {
+  border-bottom-color: var(--heritage-border);
+}
+
+.admin-body {
+  background-color: var(--heritage-soft);
+}
+
+/* Obrasci */
+.form-control:focus,
+.form-select:focus {
+  border-color: #7FA6C2;
+  box-shadow: 0 0 0 0.25rem rgba(47, 93, 124, 0.16);
+}
+
+/* Naslovi i detalji */
+.project-hero,
+.events-hero {
+  background-color: var(--heritage-sage);
+}
+
+.project-hero p,
+.events-hero p {
+  color: #425D72;
+}
+
+/* Galerija */
+.gallery-button:focus-visible {
+  outline-color: var(--heritage-green);
+}
+

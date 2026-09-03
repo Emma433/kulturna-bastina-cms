@@ -4,5 +4,6 @@ const router = express.Router();
 const dogadanjaController = require('../controllers/dogadanjaController');
 
 router.get('/', dogadanjaController.index);
+router.get('/:id', dogadanjaController.show);
 
 module.exports = router;

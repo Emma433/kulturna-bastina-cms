@@ -33,6 +33,7 @@
           <form
             method="POST"
             action="/admin/dogadanja/<%= dogadanje.id %>/uredi"
+            enctype="multipart/form-data"
           >
 
             <div class="mb-3">
@@ -134,6 +135,30 @@
                 maxlength="150"
               >
             </div>
+
+            <div class="mb-3">
+              <label for="naslovna_slika" class="form-label">
+                Naslovna slika
+              </label>
+
+              <input
+                type="file"
+                class="form-control"
+                id="naslovna_slika"
+                name="naslovna_slika"
+                accept=".jpg,.jpeg,.png,.webp"
+              >
+
+              <% if (dogadanje.naslovna_slika) { %>
+                <div class="mt-2">
+                  <img
+                    src="/uploads/<%= dogadanje.naslovna_slika %>"
+                    alt="<%= dogadanje.naziv %>"
+                    class="img-fluid rounded"
+                    style="max-height: 200px;"
+                  >
+                </div>
+              <% } %>
 
             <div class="mb-4">
               <label for="status_objave" class="form-label">

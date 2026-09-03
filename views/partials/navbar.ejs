@@ -1,8 +1,8 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark public-navbar">
   <div class="container">
 
     <a class="navbar-brand fw-semibold" href="/">
-      Baština Punta
+      Živa baština Punta
     </a>
 
     <button
@@ -54,6 +54,30 @@
           >
             O projektu
           </a>
+        </li>
+
+        <li class="nav-item ms-lg-3">
+
+          <% if (adminPrijavljen) { %>
+
+            <a
+                href="/admin/login"
+                class="btn btn-sm btn-outline-light px-3"
+            >
+                Admin
+            </a>
+
+          <% } else { %>
+
+            <a
+              href="/admin/login"
+              class="btn btn-outline-light"
+            >
+              Admin
+            </a>
+
+          <% } %>
+
         </li>
 
       </ul>

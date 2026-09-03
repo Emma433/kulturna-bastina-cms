@@ -13,6 +13,7 @@ exports.index = async (req, res) => {
           dogadanja.datum_zavrsetka,
           dogadanja.lokacija,
           dogadanja.status_objave,
+          dogadanja.naslovna_slika,
           dogadanja.created_at,
           obicaji.naziv AS naziv_obicaja
        FROM dogadanja
@@ -81,6 +82,7 @@ exports.create = async (req, res) => {
       status_objave,
     } = req.body;
 
+    // Provjera obaveznih polja
     if (
       !obicaj_id ||
       !naziv ||
@@ -106,6 +108,7 @@ exports.create = async (req, res) => {
       );
     }
 
+    // Datum završetka ne smije biti prije početka
     if (
       datum_zavrsetka &&
       new Date(datum_zavrsetka) <
@@ -130,6 +133,7 @@ exports.create = async (req, res) => {
       );
     }
 
+    // Provjera postoji li odabrani običaj
     const [povezaniObicaji] = await db.query(
       `SELECT id
        FROM obicaji
@@ -143,6 +147,11 @@ exports.create = async (req, res) => {
       );
     }
 
+    // Ako je dodana naslovna slika, spremamo naziv datoteke
+    const naslovnaSlika = req.file
+      ? req.file.filename
+      : null;
+
     await db.query(
       `INSERT INTO dogadanja (
         obicaj_id,
@@ -151,9 +160,10 @@ exports.create = async (req, res) => {
         datum_pocetka,
         datum_zavrsetka,
         lokacija,
+        naslovna_slika,
         status_objave
       )
-      VALUES (?, ?, ?, ?, ?, ?, ?)`,
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
       [
         Number(obicaj_id),
         naziv.trim(),
@@ -161,16 +171,19 @@ exports.create = async (req, res) => {
         datum_pocetka,
         datum_zavrsetka || null,
         lokacija.trim(),
+        naslovnaSlika,
         status_objave === '1' ? 1 : 0,
       ]
     );
 
-    req.session.successMessage = 'Događanje je uspješno dodano.';
+    req.session.successMessage =
+      'Događanje je uspješno dodano.';
+
     res.redirect('/admin/dogadanja');
   } catch (error) {
     console.error(
       'Greška pri dodavanju događanja:',
-      error.message
+      error
     );
 
     res.status(500).send(
@@ -192,6 +205,7 @@ exports.showEdit = async (req, res) => {
           obicaj_id,
           naziv,
           opis,
+          naslovna_slika,
           DATE_FORMAT(
             datum_pocetka,
             '%Y-%m-%dT%H:%i'
@@ -255,6 +269,27 @@ exports.update = async (req, res) => {
       status_objave,
     } = req.body;
 
+    // Dohvaćamo postojeće događanje.
+    // Ovo nam treba i zbog postojeće naslovne slike.
+    const [postojecaDogadanja] = await db.query(
+      `SELECT
+          id,
+          naslovna_slika
+       FROM dogadanja
+       WHERE id = ?`,
+      [id]
+    );
+
+    if (postojecaDogadanja.length === 0) {
+      return res.status(404).send(
+        'Događanje nije pronađeno.'
+      );
+    }
+
+    const postojecaNaslovnaSlika =
+      postojecaDogadanja[0].naslovna_slika;
+
+    // Provjera obaveznih polja
     if (
       !obicaj_id ||
       !naziv ||
@@ -278,6 +313,8 @@ exports.update = async (req, res) => {
           dogadanje: {
             id,
             ...req.body,
+            naslovna_slika:
+              postojecaNaslovnaSlika,
             status_objave:
               status_objave === '1' ? 1 : 0,
           },
@@ -285,6 +322,7 @@ exports.update = async (req, res) => {
       );
     }
 
+    // Datum završetka ne smije biti prije početka
     if (
       datum_zavrsetka &&
       new Date(datum_zavrsetka) <
@@ -307,12 +345,39 @@ exports.update = async (req, res) => {
           dogadanje: {
             id,
             ...req.body,
+            naslovna_slika:
+              postojecaNaslovnaSlika,
             status_objave:
               status_objave === '1' ? 1 : 0,
           },
         }
       );
     }
+
+    // Provjera postoji li odabrani običaj
+    const [povezaniObicaji] = await db.query(
+      `SELECT id
+       FROM obicaji
+       WHERE id = ?`,
+      [obicaj_id]
+    );
+
+    if (povezaniObicaji.length === 0) {
+      return res.status(400).send(
+        'Odabrani običaj ne postoji.'
+      );
+    }
+
+    /*
+     * Ako je administrator odabrao novu sliku,
+     * spremamo novu.
+     *
+     * Ako nije odabrao novu sliku,
+     * zadržavamo postojeću.
+     */
+    const naslovnaSlika = req.file
+      ? req.file.filename
+      : postojecaNaslovnaSlika;
 
     const [result] = await db.query(
       `UPDATE dogadanja
@@ -323,6 +388,7 @@ exports.update = async (req, res) => {
          datum_pocetka = ?,
          datum_zavrsetka = ?,
          lokacija = ?,
+         naslovna_slika = ?,
          status_objave = ?
        WHERE id = ?`,
       [
@@ -332,6 +398,7 @@ exports.update = async (req, res) => {
         datum_pocetka,
         datum_zavrsetka || null,
         lokacija.trim(),
+        naslovnaSlika,
         status_objave === '1' ? 1 : 0,
         id,
       ]
@@ -343,12 +410,14 @@ exports.update = async (req, res) => {
       );
     }
 
-    req.session.successMessage = 'Događanje je uspješno ažurirano.';
+    req.session.successMessage =
+      'Događanje je uspješno ažurirano.';
+
     res.redirect('/admin/dogadanja');
   } catch (error) {
     console.error(
       'Greška pri uređivanju događanja:',
-      error.message
+      error
     );
 
     res.status(500).send(
@@ -370,25 +439,88 @@ exports.delete = async (req, res) => {
       [id]
     );
 
-
-
     if (result.affectedRows === 0) {
       return res.status(404).send(
         'Događanje nije pronađeno.'
       );
     }
 
+    req.session.successMessage =
+      'Događanje je uspješno obrisano.';
 
-    req.session.successMessage = 'Događanje je uspješno obrisano.';
     res.redirect('/admin/dogadanja');
   } catch (error) {
     console.error(
       'Greška pri brisanju događanja:',
-      error.message
+      error
     );
 
     res.status(500).send(
       'Došlo je do greške pri brisanju događanja.'
+    );
+  }
+};
+
+/**
+ * Prikazuje detalje jednog objavljenog događanja.
+ */
+exports.show = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const [dogadanja] = await db.query(
+      `SELECT
+          dogadanja.id,
+          dogadanja.naziv,
+          dogadanja.opis,
+          dogadanja.datum_pocetka,
+          dogadanja.datum_zavrsetka,
+          dogadanja.lokacija,
+          dogadanja.naslovna_slika,
+          dogadanja.obicaj_id,
+          obicaji.naziv AS naziv_obicaja
+       FROM dogadanja
+       INNER JOIN obicaji
+         ON dogadanja.obicaj_id = obicaji.id
+       WHERE dogadanja.id = ?
+         AND dogadanja.status_objave = 1`,
+      [id]
+    );
+
+    if (dogadanja.length === 0) {
+      return res.status(404).render('404', {
+        title: 'Događanje nije pronađeno',
+      });
+    }
+
+    const dogadanje = dogadanja[0];
+
+    const [fotografije] = await db.query(
+      `SELECT
+          id,
+          putanja,
+          opis,
+          created_at
+       FROM dogadanje_fotografije
+       WHERE dogadanje_id = ?
+       ORDER BY created_at ASC`,
+      [id]
+    );
+
+    res.render('dogadanje-detalji', {
+      title: dogadanje.naziv,
+      dogadanje,
+      fotografije,
+    });
+
+  } catch (error) {
+    console.error(
+      'Greška pri dohvaćanju detalja događanja:',
+      error
+    );
+
+    res.status(500).send(
+      'Došlo je do greške pri dohvaćanju događanja.'
     );
   }
 };
