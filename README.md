@@ -74,6 +74,7 @@ Projekt je organiziran prema MVC pristupu uz odvajanje pojedinih odgovornosti ap
 - `middlewares` sadrži middleware za zaštitu administratorskih ruta i prijenos fotografija
 - `config` sadrži konfiguraciju potrebnu za povezivanje s bazom podataka
 - `public` sadrži statičke datoteke, uključujući CSS, JavaScript i fotografije
+- `scripts` sadrži pomoćne skripte, uključujući skriptu za kreiranje administratorskog računa
 
 ## Struktura projekta
 
@@ -123,7 +124,11 @@ Iz sigurnosnih razloga SQL datoteka ne sadrži stvarni administratorski korisni�
 
 ## Instalacija projekta
 
-Za lokalno pokretanje aplikacije potrebno je imati instaliran Node.js i dostupan MySQL poslužitelj.
+Za lokalno pokretanje aplikacije potrebno je imati instalirane:
+
+- Node.js
+- npm
+- MySQL
 
 Nakon preuzimanja repozitorija potrebno je otvoriti terminal u glavnoj mapi projekta i instalirati potrebne pakete:
 
@@ -151,35 +156,69 @@ Primjer potrebne konfiguracije nalazi se u datoteci:
 .env.example
 ```
 
-Na temelju te datoteke potrebno je kreirati vlastitu `.env` datoteku i unijeti odgovarajuće podatke za povezivanje s MySQL bazom te ostale potrebne konfiguracijske vrijednosti.
+Na temelju datoteke `.env.example` potrebno je u korijenskoj mapi projekta kreirati vlastitu `.env` datoteku.
 
-Datoteka `.env` navedena je u `.gitignore` datoteci i ne šalje se na GitHub.
+Primjer:
+
+```env
+DB_HOST=adresa-posluzitelja
+DB_PORT=3306
+DB_USER=korisnicko-ime
+DB_PASSWORD=lozinka
+DB_NAME=naziv-baze
+
+SESSION_SECRET=unesite-dugu-nasumicnu-vrijednost
+
+ADMIN_USERNAME=admin
+ADMIN_EMAIL=admin@example.com
+ADMIN_PASSWORD=unesite-sigurnu-lozinku
+```
+
+Vrijednosti je potrebno prilagoditi vlastitom MySQL okruženju.
+
+Datoteka `.env` navedena je u `.gitignore` datoteci i ne šalje se u javni GitHub repozitorij.
+
+## Kreiranje administratorskog računa
+
+Administratorski dio aplikacije zaštićen je autentifikacijom i sesijom.
+
+Iz sigurnosnih razloga pristupni podaci stvarnog administratorskog računa korištenog tijekom razvoja nisu objavljeni u GitHub repozitoriju niti u SQL datoteci.
+
+Za kreiranje vlastitog administratorskog računa potrebno je u `.env` datoteci postaviti:
+
+```env
+ADMIN_USERNAME=admin
+ADMIN_EMAIL=admin@example.com
+ADMIN_PASSWORD=unesite-sigurnu-lozinku
+```
+
+Nakon postavljanja podataka administratorski račun kreira se naredbom:
+
+```bash
+node scripts/createAdmin.js
+```
+
+Skripta hashira unesenu lozinku pomoću biblioteke `bcrypt` prije spremanja administratorskog računa u bazu podataka.
+
+Nakon uspješnog kreiranja računa moguće je prijaviti se u administratorski dio aplikacije pomoću postavljenog korisničkog imena i lozinke.
 
 ## Pokretanje aplikacije
 
-Nakon instalacije paketa, postavljanja baze podataka i konfiguracije `.env` datoteke aplikacija se pokreće naredbom definiranom u `package.json`.
-
-Primjer:
+Nakon instalacije paketa, postavljanja baze podataka i konfiguracije `.env` datoteke aplikacija se pokreće naredbom:
 
 ```bash
 npm start
 ```
 
-Ako se tijekom razvoja koristi druga razvojna skripta, dostupne skripte moguće je provjeriti u datoteci `package.json`.
-
-## Administratorski pristup
-
-Administratorski dio aplikacije zaštićen je autentifikacijom i sesijom.
-
-Iz sigurnosnih razloga pristupni podaci stvarnog administratorskog računa nisu objavljeni u GitHub repozitoriju niti u SQL datoteci.
-
-Za testiranje administratorskog dijela potrebno je u tablici `administratori` kreirati vlastiti administratorski račun s odgovarajuće hashiranom lozinkom.
+Naredba pokreće glavnu datoteku `app.js` pomoću Node.js okruženja.
 
 ## Sigurnost
 
-Osjetljivi podaci poput pristupnih podataka MySQL baze i podataka sesije nisu pohranjeni u javnom repozitoriju.
+Osjetljivi podaci poput pristupnih podataka MySQL baze, administratorske lozinke i tajne vrijednosti sesije nisu pohranjeni u javnom repozitoriju.
 
 Datoteka `.env` isključena je iz verzioniranja pomoću `.gitignore` datoteke.
+
+Administratorske lozinke ne spremaju se u bazu podataka kao običan tekst, nego u hashiranom obliku pomoću biblioteke `bcrypt`.
 
 Prijenos fotografija ograničen je na podržane slikovne formate JPG, PNG i WEBP, uz ograničenje veličine datoteke.
 
